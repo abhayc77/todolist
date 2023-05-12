@@ -10,10 +10,22 @@ function App() {
         setNewTask(event.target.value);
     };
 
+    const completeTask = (taskid) => {
+       setTodoList(todoList.map((task) => {
+            if(task.id === taskid){
+                return {...task, completed:true}
+            } else {
+                return task;
+            }
+       })
+       );   
+    };
+
     const addTask = () => {
         const nt =  {
           id: todoList.length === 0 ? 1 : todoList[todoList.length -1].id + 1,
-          taskName : newTask
+          taskName : newTask,
+          completed : false
         }
         setTodoList([...todoList, nt]);
     };
@@ -35,7 +47,9 @@ function App() {
                         return <Task 
                         taskName={task.taskName} 
                         id={task.id}
+                        completed= {task.completed}
                         deleteTask= {deleteTask}
+                        completeTask = {completeTask}
                         />;                        
                     })}
             </div>
